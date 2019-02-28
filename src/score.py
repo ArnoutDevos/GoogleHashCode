@@ -36,7 +36,7 @@ def score_transition(slide1, slide2):
     #print("unique2: {}".format(len(unique_2)))
     if len(unique_2) == 0: return 0
 
-    return len(min([common_tags, unique_1, unique_2]))
+    return min([len(common_tags), len(unique_1), len(unique_2)])
 
 if __name__ == '__main__':
     # Test, should give score = 1
