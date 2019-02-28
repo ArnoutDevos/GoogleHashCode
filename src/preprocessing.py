@@ -1,5 +1,5 @@
 from parser import load_dataset
-
+from parser import Image
 
 def preprocess(dataset_letter):
     images = load_dataset(dataset_letter)
@@ -13,6 +13,8 @@ def preprocess(dataset_letter):
             if len(vert_slide) == 2:
                 slides.append(vert_slide)
                 vert_slide = []
+
+    print(slides)
     return slides
 
 
