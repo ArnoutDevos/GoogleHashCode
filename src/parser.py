@@ -11,7 +11,13 @@ FILES = {
     'e': 'e_shiny_selfies.txt',
 }
 
+
 def load_dataset(dataset_letter):
+    """
+    Load a dataset by its letter
+    :param dataset_letter: a, b, c, d, or e
+    :returns: list of { orientation: H/V, tags: set()}
+    """
     curdir = os.path.dirname(os.path.realpath(__file__))
     datadir = os.path.join(curdir, '..', 'data')
     filename = os.path.join(datadir, FILES[dataset_letter])
