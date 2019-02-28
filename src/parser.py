@@ -16,7 +16,7 @@ def load_dataset(dataset_letter):
     """
     Load a dataset by its letter
     :param dataset_letter: a, b, c, d, or e
-    :returns: list of { orientation: H/V, tags: set()}
+    :returns: list of { id: integer, orientation: H/V, tags: set()}
     """
     curdir = os.path.dirname(os.path.realpath(__file__))
     datadir = os.path.join(curdir, '..', 'data')
@@ -32,6 +32,7 @@ def load_dataset(dataset_letter):
             orientation = entries[0]
             tags = set(entries[2:])
             images.append({
+                'id': i - 1,
                 'orientation': orientation,
                 'tags': tags
             })
