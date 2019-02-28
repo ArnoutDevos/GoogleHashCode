@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-from preprocessing import preprocess
+from preprocessing import images_to_slides
+from parser import load_dataset
 
 def generate_index(slides):
     index = {}
@@ -15,21 +16,29 @@ def generate_index(slides):
     return index
 
 def neighbors(slide, index):
-    result = set()
+    result = []
+    result_ids = set([slide[0].id])
     slide_tags = set()
 
     for image in slide:
         slide_tags = slide_tags.union(image.tags)
 
     for tag in slide_tags:
-        result.union(set(index[tag]))
+        for slide_1 in index[tag]:
+            if slide_1[0].id not in result_ids:
+                result.append(slide_1)
+                result_ids = result_ids.union([slide_1[0].id])
 
-    result = result.difference(slide)
-
+    #print(result)
     return result
 
 if __name__ == '__main__':
     # Test, should give score = 1
-    slides = preprocess('a')
+    images = load_dataset('a')
+    slides = images_to_slides(images)
 
-    generate_index(slides)
+    #for slide in slides:
+    #    print(slide)
+
+    index = generate_index(slides)
+    neighbors(slides[0], index)
