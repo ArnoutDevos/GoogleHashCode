@@ -1,8 +1,7 @@
 from parser import load_dataset
 from parser import Image
 
-def preprocess(dataset_letter):
-    images = load_dataset(dataset_letter)
+def images_to_slides(images):
     slides = []
     vert_slide = []
     for image in images:
@@ -14,7 +13,6 @@ def preprocess(dataset_letter):
                 slides.append(vert_slide)
                 vert_slide = []
 
-    print(slides)
     return slides
 
 

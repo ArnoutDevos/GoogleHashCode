@@ -4,6 +4,7 @@ import random
 from argparse import ArgumentParser
 from formatter import save_slideshow
 from parser import load_dataset
+from preprocessing import images_to_slides
 
 import numpy as np
 
@@ -18,12 +19,10 @@ def main():
 
     images = load_dataset(args.dataset)
 
+    random.shuffle(images)
+
     # Get horizontal-only slides
-    slides = [
-        [img]
-        for img in images
-        if img.orientation == 'H'
-    ]
+    slides = images_to_slides(images)
 
     random.shuffle(slides)
 
