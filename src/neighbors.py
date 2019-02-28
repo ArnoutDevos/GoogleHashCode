@@ -6,14 +6,19 @@ def generate_index(slides):
     for slide in slides:
         for image in slide:
             for tag in image.tags:
-                index[tag] = set().union(index[tag]).union(image)
+                if tag not in index:
+                    index[tag] = []
+                index[tag].append(image)
 
-    print(index)
+    for key in index:
+        print(key, index[key])
     return index
+
+def neighbors(slide):
+    pass
 
 if __name__ == '__main__':
     # Test, should give score = 1
-    generate_index([
-        [Image(3, 'H', set(['monkey', 'sun']))],
-        [Image(64, 'V', set(['green', 'sun'])),Image(85, 'V', set(['purple', 'sun']))],
-    ])
+    slides = preprocess('a')
+
+    generate_index(slides)
