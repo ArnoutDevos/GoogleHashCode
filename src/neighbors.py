@@ -27,7 +27,7 @@ def neighbors(slide, index):
         for slide_1 in index[tag]:
             if slide_1[0].id not in result_ids:
                 result.append(slide_1)
-                result_ids = result_ids.union([slide_1[0].id])
+                result_ids.add(slide_1[0].id)
 
     #print(result)
     return result
