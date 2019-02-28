@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import random
 from argparse import ArgumentParser
 from formatter import save_slideshow
@@ -11,24 +13,34 @@ from score import score_transition
 def main():
     parser = ArgumentParser()
     parser.add_argument('dataset')
-    parser.add_argument('--sample-size', default=10)
+    parser.add_argument('--sample-size', default=10, type=int)
     args = parser.parse_args()
 
     images = load_dataset(args.dataset)
 
     # Get horizontal-only slides
-    slides = [[img] for img in images if img.orientation == 'H']
+    slides = [
+        [img]
+        for img in images
+        if img.orientation == 'H'
+    ]
 
     random.shuffle(slides)
 
-    slides_left = slides[1:]
+    n_slides = len(slides)
 
-    slideshow = [slides[0]]
+    slides_left = slides
+    slideshow = [slides_left[0]]
+    slides_left.pop(0)
 
     sum_scores = 0
 
+    i = 0
     while len(slides_left) > 0:
-        print(len(slideshow))
+        i += 1
+        if i % 10 == 1:
+            print('{:6d} / {:6d}'.format(len(slideshow), n_slides))
+
         last_slide = slideshow[-1]
         sample_idx = np.random.choice(len(slides_left), min(len(slides_left), args.sample_size))
         best_score = None
@@ -39,7 +51,7 @@ def main():
             if best_score is None or score > best_score:
                 best_score = score
                 best_idx = idx
-        slideshow.append(proposal)
+        slideshow.append(slides_left[best_idx])
         slides_left.pop(best_idx)
         sum_scores += best_score
 
