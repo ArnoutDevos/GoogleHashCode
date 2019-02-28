@@ -2,7 +2,7 @@ from parser import load_dataset
 
 
 def preprocess(dataset_letter):
-    images = parser.load_dataset(dataset_letter)
+    images = load_dataset(dataset_letter)
     slides = []
     vert_slide = []
     for image in images:

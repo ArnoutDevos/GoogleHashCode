@@ -26,17 +26,20 @@ def score_transition(slide1, slide2):
 
     common_tags = image_1_tags.intersection(image_2_tags)
     #print("common: {}".format(len(common_tags)))
+    if len(common_tags) == 0: return 0
 
     unique_1    = image_1_tags.difference(image_2_tags)
     #print("unique1: {}".format(len(unique_1)))
+    if len(unique_1) == 0: return 0
 
     unique_2    = image_2_tags.difference(image_1_tags)
     #print("unique2: {}".format(len(unique_2)))
+    if len(unique_2) == 0: return 0
 
     return len(min([common_tags, unique_1, unique_2]))
 
 if __name__ == '__main__':
-    # Test
+    # Test, should give score = 1
     score([
         [Image(3, 'H', set(['monkey', 'sun']))],
         [Image(64, 'V', set(['green', 'sun'])),Image(85, 'V', set(['purple', 'sun']))],
